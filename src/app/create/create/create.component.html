@@ -1,0 +1,49 @@
+
+
+<div class="jumbotron col-md-12">
+    <!-- Header -->
+
+    <div class="single-col-max text-center">            
+        <h1 class="hero-heading mb-5">
+            <span class="brand mb-4 d-block"><span class="text-highlight pr-2"></span><span class="name">Add A New Product</span><span class="text-highlight pl-2"></span></span>
+            <span class="desc d-block">Toys & Games</span>
+        </h1>
+    </div><!--//single-col-max-->
+
+    <div *ngIf="isSuccess" class="alert alert-success" role="alert">
+       Guardado correctamente
+      </div>
+
+    <form #productForm="ngForm" (ngSubmit)="createProduct(productForm)">
+        <div class="col-md-8">
+            <div class="form-group ">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text" class="form-control col-md-6" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name"
+                name="Name" #Name="ngModel" [(ngModel)]="product.Name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Price</label>
+                <input type="text" class="form-control col-md-3" id="exampleInputPassword1" placeholder="12.5"
+                name="Price" #Price="ngModel" [(ngModel)]="product.Price">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Company</label>
+                <input type="text" class="form-control col-md-6" id="exampleInputPassword1" placeholder="US"
+                name="Company" #Company="ngModel" [(ngModel)]="product.Company">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Maximum Age</label>
+                <input type="number" class="form-control col-md-3" id="exampleInputPassword1" placeholder="1"
+                name="AgeRestriction" #AgeRestriction="ngModel" [(ngModel)]="product.AgeRestriction">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Description</label>
+                <textarea class="form-control col-md-6" id="exampleInputPassword1" placeholder="Set a description"
+                name="Description" #Description="ngModel" [(ngModel)]="product.Description"></textarea>
+            </div>
+              <button type="submit" class="btn btn-outline-primary mr-3">Save</button>
+              <button class="btn btn-outline-danger mr-3" [routerLink]="['/products']">Cancel</button>
+        </div>    
+    </form>
+    
+</div>
