@@ -45,16 +45,6 @@ export class ProductsComponent implements OnInit {
     );
   }
 
-  // getProduct(id){
-  //   this._productSevice.getProduct(id).subscribe(response =>{
-  //     console.log(response);
-  //   },
-  //   error=>{
-  //     console.log(error);
-  //   }
-  //   );
-  // }
-
 
   deleteProduct(id)
   {

@@ -3,14 +3,29 @@ import * as internal from "assert";
 
 export class Product
 {
-    constructor(
-        public Id: number,
-        public  Name: string,
-        public Description: string,
-        public AgeRestriction: number,
-        public Company: string,
-        public Price: number
-    ){}
+    // constructor(
+    //     public Id: number,
+    //     public  Name: string,
+    //     public Description: string,
+    //     public AgeRestriction: number,
+    //     public Company: string,
+    //     public Price: number
+    // ){}
+
+    public Id: number;
+    public  Name: string;
+    public Description: string;
+    public AgeRestriction: number;
+    public Company: string;
+    public Price: number;
+
+    public ProductTypeId: number
+    public ProductType : any
+
+
+
+
+    constructor(){}
 
     
 }

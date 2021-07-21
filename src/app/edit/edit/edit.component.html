@@ -7,61 +7,58 @@
             <span class="desc d-block">Toys & Games</span>
         </h1>
     </div><!--//single-col-max-->
-
-    <!-- <form>
-        <div class="col-md-8">
-            <div class="form-group ">
-                <label for="exampleInputEmail1">Name</label>
-                <input type="email" class="form-control col-md-6" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Price</label>
-                <input type="password" class="form-control col-md-3" id="exampleInputPassword1" placeholder="12.5">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Company</label>
-                <input type="password" class="form-control col-md-6" id="exampleInputPassword1" placeholder="US">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Maximum Age</label>
-                <input type="number" class="form-control col-md-3" id="exampleInputPassword1" placeholder="1">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Description</label>
-                <textarea class="form-control col-md-6" id="exampleInputPassword1" placeholder="Set a description"></textarea>
-            </div>
-              <button type="submit" class="btn btn-outline-primary mr-3">Update</button>
-              <button class="btn btn-outline-danger mr-3">Cancel</button>
-        </div>    
-    </form> -->
+    
     <form #productForm="ngForm" (ngSubmit)="updateProduct(productForm)">
         <div class="col-md-8">
             <div class="form-group ">
                 <label for="exampleInputEmail1">Name</label>
                 <input type="text" class="form-control col-md-6" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name"
-                name="Name" #Name="ngModel" [(ngModel)]="productToEdit.Name" >
+                name="Name" #Name="ngModel" [(ngModel)]="productToEdit.Name" required>
+                <span class="form_error text-danger" *ngIf="Name.touched && !Name.valid"> 
+                    Name is required.
+                </span>
             </div>
+
+            <div class="form-group">
+                <select class="custom-select col-md-6" name="type" #type="ngModel" [(ngModel)]="productToEdit.ProductTypeId">
+                    <option >Select Category</option>
+                    <option *ngFor="let type of productTypes" [value]="type.id">{{type.name}}</option>
+                  </select>
+            </div>
+
             <div class="form-group">
                 <label for="exampleInputPassword1">Price</label>
                 <input type="text" class="form-control col-md-3" id="exampleInputPassword1" placeholder="12.5"
-                name="Price" #Price="ngModel" [(ngModel)]="productToEdit.Price">
+                name="Price" #Price="ngModel" [(ngModel)]="productToEdit.Price" required min="0" max="1000">
+                <span class="form_error text-danger" *ngIf="Price.touched && !Price.valid"> 
+                    Price is required and have to be between $0 and $1000
+                </span>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Company</label>
                 <input type="text" class="form-control col-md-6" id="exampleInputPassword1" placeholder="US"
-                name="Company" #Company="ngModel" [(ngModel)]="productToEdit.Company">
+                name="Company" #Company="ngModel" [(ngModel)]="productToEdit.Company" required maxlength="50">
+                <span class="form_error text-danger" *ngIf="Company.touched && !Company.valid"> 
+                    Company´s name is required.
+                </span>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Maximum Age</label>
                 <input type="number" class="form-control col-md-3" id="exampleInputPassword1" placeholder="1"
-                name="AgeRestriction" #AgeRestriction="ngModel" [(ngModel)]="productToEdit.AgeRestriction">
+                name="AgeRestriction" #AgeRestriction="ngModel" [(ngModel)]="productToEdit.AgeRestriction" min="5" max="100">
+                <span class="form_error text-danger" *ngIf="AgeRestriction.touched && !AgeRestriction.valid"> 
+                    You need to specify the Max age for this product.
+                </span>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Description</label>
                 <textarea class="form-control col-md-6" id="exampleInputPassword1" placeholder="Set a description"
-                name="Description" #Description="ngModel" [(ngModel)]="productToEdit.Description"></textarea>
+                name="Description" #Description="ngModel" [(ngModel)]="productToEdit.Description" maxlength="100"></textarea>
+                <span class="form_error text-danger" *ngIf="Description.touched && !Description.valid"> 
+                    Description can not be more than 100 characters.
+                </span>
             </div>
-              <button type="submit" class="btn btn-outline-primary mr-3">Save</button>
+              <button type="submit" class="btn btn-outline-primary mr-3" [disabled]="!productForm.form.valid">Save</button>
               <button class="btn btn-outline-danger mr-3" [routerLink]="['/products']" >Cancel</button>
         </div>    
     </form>

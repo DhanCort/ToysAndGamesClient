@@ -21,6 +21,7 @@ export class ProductService
         this.url = Global.url;
     }
 
+
     testServiceMethod(){
         return "Todo va jalando bien";
     }
@@ -33,20 +34,16 @@ export class ProductService
     
     }
 
+    getProductsTypes():Observable<any>{
+
+        let headers = new HttpHeaders().set('Content-type', 'application/json');
+    
+        return this._http.get(this.url+'types', {headers:headers});    
+    }
+
     addProduct(product:Product):Observable<any>
     {
         let params = JSON.stringify(product);
-
-
-        // var otroProduct = {
-        //     "Name":"MyCustom Toy",
-        //     "Description": "Creating a nerw brand of toy",
-        //     "AgeRestriction": 125,
-        //     "Company": "DhanINC",
-        //     "Price": 85.5
-        // }
-
-        // let params1 = JSON.stringify(otroProduct);
 
         let headers = new HttpHeaders().set('Content-type', 'application/json');
 
@@ -67,6 +64,15 @@ export class ProductService
     
         return this._http.delete(this.url+'delete?Id='+id, {headers:headers});  
     
+    }
+
+    updateProduct(product:Product):Observable<any>
+    {
+        let params = JSON.stringify(product);
+
+        let headers = new HttpHeaders().set('Content-type', 'application/json');
+
+        return this._http.put(this.url+'update', params, {headers:headers});
     }
 
 

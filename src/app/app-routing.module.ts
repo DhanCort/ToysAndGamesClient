@@ -7,7 +7,7 @@ import { CreateComponent } from './create/create/create.component';
 
 
 const routes: Routes = [
-  {path:'', component: CreateComponent},
+  {path:'', component: ProductsComponent},
   {path:'products', component: ProductsComponent},
   {path:'create', component: CreateComponent},
   {path:'edit/:id', component: EditComponent},

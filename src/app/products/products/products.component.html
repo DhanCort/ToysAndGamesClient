@@ -25,8 +25,10 @@
     </div><!--//container-->
 
 
+<div class="row">
+  <a class="btn btn-outline-success btn-lg ml-5 mb-5 col-md-4" [routerLink]="['/create']" >Agregar</a>
+</div>
 
-<a class="btn btn-outline-success" [routerLink]="['/create']" >Agregar</a>
 <!-- List of Products-->
 <table class="table table-hover table-sm">
     <thead>
@@ -36,6 +38,7 @@
         <th scope="col">Age</th>
         <th scope="col">Price</th>
         <th scope="col">Company</th>
+        <th scope="col">Type</th>
         <th></th>
         <th></th>
       </tr>
@@ -47,8 +50,9 @@
         <td>{{item.ageRestriction}}</td>
         <td>{{item.price}}</td>
         <td>{{item.company}}</td>
+        <td>{{item.productType.name}}</td>
         <td>
-            <a  class="btn btn-outline-success" [routerLink]="['/edit', item.id]" >Update</a>
+            <a *ngIf="!confirmDeletion" class="btn btn-outline-success" [routerLink]="['/edit', item.id]" >Update</a>
             <!-- <button class="btn btn-outline-primary" [routerLink]="['/create', item.id]">Update</button>             -->
         </td>
         <td>

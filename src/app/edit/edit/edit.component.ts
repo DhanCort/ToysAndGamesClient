@@ -15,13 +15,17 @@ import { Product } from '../../models/Product';
 })
 export class EditComponent implements OnInit {
 
-  public productToEdit: Product= new Product(1, "", "", 0, "", 1);
+  public isSuccess: boolean;
+  public productToEdit: Product= new Product();
+  public productTypes: any;
 
   constructor(private _productSevice: ProductService,
     private _router:Router,
     private _route:ActivatedRoute
     ) 
-    { }
+    {
+      this.isSuccess = false;      
+    }
 
   ngOnInit()
   {
@@ -30,17 +34,20 @@ export class EditComponent implements OnInit {
 
       this.getProduct(id);
     });
+
+    this.getProductsType();
   }
 
   getProduct(id){
     this._productSevice.getProduct(id).subscribe(response =>{
       console.log(response.products);
+      this.productToEdit.Id = response.products.id;
       this.productToEdit.Name = response.products.name;
       this.productToEdit.Price = response.products.price;
       this.productToEdit.Company = response.products.company;
       this.productToEdit.AgeRestriction = response.products.ageRestriction;
       this.productToEdit.Description = response.products.description;
-
+      this.productToEdit.ProductTypeId  = response.products.productTypeId;
     },
     error=>{
       console.log(error);
@@ -49,7 +56,29 @@ export class EditComponent implements OnInit {
   }
 
   updateProduct(form){
-    console.log("Update product method waiting to be implemented");
+    this._productSevice.updateProduct(this.productToEdit).subscribe(
+      response =>{
+        this.isSuccess = true;
+        this._router.navigate(['/products']);
+      },
+      error => {
+
+      }
+    );
+  }
+
+  getProductsType(){
+    this._productSevice.getProductsTypes().subscribe(
+      response => {
+        console.log("Types desde edit ")
+        this.productTypes = response.products;
+        console.log("Objeto de respuesta con id");
+        console.log(this.productTypes)
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 }

@@ -5,6 +5,7 @@ import { ProductService } from '../../services/product.service';
 
 //Models
 import { Product } from '../../models/Product';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -13,16 +14,27 @@ import { Product } from '../../models/Product';
   providers: [ ProductService]
 })
 export class CreateComponent implements OnInit {
+
   public isSuccess: boolean;
   public product: Product;
+  public productTypes: any;
 
-  constructor(private _productSevice: ProductService) 
+  constructor(private _productSevice: ProductService,
+    private _router:Router,
+    private _route:ActivatedRoute) 
   {
     this.isSuccess = false;
-    this.product = new Product(1, "", "", 0, "", 1);
+    this.product = new Product();
+    this.product.Name = "";
+    this.product.Price = 1.0;
+    this.product.Company = "";
+    this.product.AgeRestriction = 1;
+    this.product.Description = "";
+    this.product.ProductTypeId = 0;
   }
 
   ngOnInit() {
+    this.getProductsType();
   }
 
 
@@ -32,12 +44,24 @@ export class CreateComponent implements OnInit {
       console.log(response);
       this.isSuccess = true;
       form.reset();
+      this._router.navigate(['/products']);
     },
     error=>{
       console.log(error);
     }
-    );
-    
+    );    
+  }
+
+
+  getProductsType(){
+    this._productSevice.getProductsTypes().subscribe(
+      response => {
+        this.productTypes = response.products;
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 }
